@@ -13,10 +13,10 @@ fi
 
 # Get the current kernel release
 current_release=$(uname -r)
-echo "Start dmesg regression check for $current_release" > dmesg_checks_results.txt
+echo "Start dmesg regression check for $current_release" > dmesg_checks_results
 
 # Separator for better readability
-echo "--------------------------" >> dmesg_checks_results.txt
+echo "--------------------------" >> dmesg_checks_results
 
 # Capture dmesg output for different log levels and compare with the previous version
 capture_and_compare() {
@@ -24,10 +24,10 @@ capture_and_compare() {
     file="$2"
 
     dmesg -t -l "$level" > "$current_release.$file"
-    echo "dmesg $level regressions" >> dmesg_checks_results.txt
-    echo "--------------------------" >> dmesg_checks_results.txt
-    diff "$1.$file" "$current_release.$file" >> dmesg_checks_results.txt
-    echo "--------------------------" >> dmesg_checks_results.txt
+    echo "dmesg $level regressions" >> dmesg_checks_results
+    echo "--------------------------" >> dmesg_checks_results
+    diff "$1.$file" "$current_release.$file" >> dmesg_checks_results
+    echo "--------------------------" >> dmesg_checks_results
 }
 
 # Perform regression check for different log levels
@@ -38,11 +38,10 @@ capture_and_compare err dmesg_err
 capture_and_compare warn dmesg_warn
 
 # Compare overall dmesg and kernel messages
-diff "$1.dmesg" "$current_release.dmesg" >> dmesg_checks_results.txt
-echo "--------------------------" >> dmesg_checks_results.txt
-diff "$1.dmesg_kern" "$current_release.dmesg_kern" >> dmesg_checks_results.txt
-echo "--------------------------" >> dmesg_checks_results.txt
+diff "$1.dmesg" "$current_release.dmesg" >> dmesg_checks_results
+echo "--------------------------" >> dmesg_checks_results
+diff "$1.dmesg_kern" "$current_release.dmesg_kern" >> dmesg_checks_results
+echo "--------------------------" >> dmesg_checks_results
 
-echo "--------------------------" >> dmesg_checks_results.txt
-echo "End dmesg regression check for $current_release" >> dmesg_checks_results.txt
-
+echo "--------------------------" >> dmesg_checks_results
+echo "End dmesg regression check for $current_release" >> dmesg_checks_results
