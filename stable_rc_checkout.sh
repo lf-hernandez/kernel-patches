@@ -10,7 +10,7 @@ git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.g
 cd linux-$1.y
 #cp /boot/<currentconfig> .config # update script
 cp /boot/config-$(uname -r) .config
-make -j2 all
+make -j"$(nproc)" all
 rc=$?; if [[ $rc !=0 ]]; then exit $rc; fi
 su -c "make modules_install install"
 echo Ready for reboot test of Linux-$1

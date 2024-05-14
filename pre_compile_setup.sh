@@ -16,7 +16,7 @@ gunzip patch-$1-rc$2.gz
 git apply --index patch-$1-rc$2
 echo "Patch-$1-rc$2 applied"
 head Makefile
-make -j2 all
+make -j"$(nproc)" all
 rc=$?; if [[ $rc != 0 ]]; then exit $rc; fi
 su -c "make modules_install install"
 echo Ready for reboot test of Linux-$1-$2
